@@ -7,6 +7,8 @@ export interface Random {
   digits(length: number): string;
 }
 
+export type RandomSource = Random | Seed | undefined;
+
 function hashSeed(seed: Seed): number {
   const text = String(seed);
   let hash = 2166136261;
@@ -58,4 +60,12 @@ export function createRandom(seed: Seed = Date.now()): Random {
       return Array.from({ length }, () => Math.floor(float() * 10)).join("");
     },
   };
+}
+
+export function resolveRandom(source?: RandomSource): Random {
+  if (typeof source === "object" && source !== null) {
+    return source;
+  }
+
+  return createRandom(source);
 }
