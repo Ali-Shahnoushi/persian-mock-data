@@ -1,6 +1,6 @@
 {
   "name": "persian-mock-data",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Deterministic, framework-agnostic Iranian mock data generators and validators.",
   "keywords": [
     "iran",
