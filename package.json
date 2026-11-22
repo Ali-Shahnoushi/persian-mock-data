@@ -10,6 +10,15 @@
     "typescript"
   ],
   "license": "MIT",
+  "author": "Ali Shahnoushi",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ali-Shahnoushi/persian-mock-data.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ali-Shahnoushi/persian-mock-data/issues"
+  },
+  "homepage": "https://github.com/Ali-Shahnoushi/persian-mock-data#readme",
   "type": "module",
   "sideEffects": false,
   "files": [
