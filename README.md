@@ -1,52 +1,52 @@
 # Persian Mock Data Factory
 
-**Realistic Iranian mock data and intentionally invalid test cases for frontend forms.**
+**تولید داده‌های آزمایشی ایرانی با ساختار معتبر و سناریوهای نامعتبر عمدی برای تست فرم‌های فرانت‌اند.**
 
-Persian Mock Data Factory is a planned, open-source, TypeScript-first toolkit for generating **synthetic Iranian data** for UI development, automated form testing, and demos. It aims to go beyond random strings by producing data that follows Iranian formatting and validation rules, supports reproducible edge cases, and can be adapted to different form schemas.
+**Persian Mock Data Factory** یک ابزار متن‌باز و مبتنی بر TypeScript است که برای تولید **داده‌های ساختگی ایرانی** در توسعه رابط کاربری، تست خودکار فرم‌ها و ساخت دمو طراحی خواهد شد. هدف این پروژه فراتر رفتن از تولید رشته‌های تصادفی است: تولید داده‌هایی که از قواعد قالب‌بندی و اعتبارسنجی ایران پیروی می‌کنند، سناریوهای خاص و قابل بازتولید دارند و می‌توان آن‌ها را با ساختار فرم‌های مختلف سازگار کرد.
 
-> **Project status:** Planning / initial development. The APIs below are **proposals**, not currently available features.
+> **وضعیت پروژه:** در مرحله برنامه‌ریزی و شروع توسعه. APIهای این سند **پیشنهادی هستند** و هنوز به‌عنوان قابلیت پیاده‌سازی‌شده در دسترس نیستند.
 
-## Why this project?
+## چرا این پروژه؟
 
-Frontend developers building Persian-language applications often need to test more than a happy-path example. A form may handle `09123456789` but fail when a user pastes Persian digits, uses Arabic characters, omits a required field, or enters a value with a deliberately incorrect checksum.
+توسعه‌دهندگان فرانت‌اند در اپلیکیشن‌های فارسی باید فراتر از ورودی‌های معمول و صحیح را آزمایش کنند. ممکن است یک فرم با `09123456789` درست کار کند، اما هنگام چسباندن اعداد فارسی، استفاده از حروف عربی، خالی گذاشتن فیلد اجباری یا ورود کدی با رقم کنترلی اشتباه با مشکل روبه‌رو شود.
 
-This project has two equally important goals:
+این پروژه دو هدف هم‌اهمیت دارد:
 
-1. **Valid-mode fixtures:** Generate data that passes specified *format and algorithm* checks.
-2. **Invalid-mode fixtures:** Generate controlled failures for testing validation messages, input constraints, and edge cases.
+1. **تولید داده معتبر (Valid Mode):** ساخت داده‌هایی که از بررسی‌های مشخص‌شده برای *قالب و الگوریتم* عبور کنند.
+2. **تولید داده نامعتبر (Invalid Mode):** ساخت خطاهای کنترل‌شده برای تست پیام‌های اعتبارسنجی، محدودیت‌های فیلدها و حالت‌های مرزی.
 
-The project is **not** intended to generate or verify real people's identities, active telephone numbers, or deliverable postal addresses.
+این پروژه **برای تولید یا تأیید هویت اشخاص واقعی، شماره‌تلفن‌های فعال یا نشانی‌های پستی قابل تحویل طراحی نشده است**.
 
-## Planned data types
+## انواع داده‌های برنامه‌ریزی‌شده
 
-| Category | Examples | Validation or consistency goal |
+| دسته | نمونه داده | هدف اعتبارسنجی یا سازگاری |
 | --- | --- | --- |
-| People | Persian first name, last name, full name | Natural-looking, synthetic names |
-| Mobile phones | Iranian mobile number | 11-digit national format and supported prefixes |
-| Landlines | Iranian fixed-line number | Area-code and subscriber-number structure |
-| National ID (`کد ملی`) | 10-digit national ID | User-provided modulus-11 check-digit algorithm |
-| Postal code | 10-digit postal code | Format checks; **not** an address-ownership guarantee |
-| Addresses | Province, city, street, alley, building number, unit | Internally consistent synthetic address parts |
-| Payments (later) | Card number, IBAN (`شبا`) | Structural/checksum validation only; never real account verification |
-| Text and fields | Persian, Arabic, Latin, mixed-direction text | Unicode, length, whitespace, and normalization edge cases |
+| اطلاعات اشخاص | نام، نام خانوادگی و نام کامل فارسی | نام‌های ساختگی با ظاهر طبیعی |
+| تلفن همراه | شماره موبایل ایران | ساختار ۱۱ رقمی داخلی و پیش‌شماره‌های پشتیبانی‌شده |
+| تلفن ثابت | شماره تلفن ثابت ایران | ساختار کد منطقه و شماره مشترک |
+| کد ملی (`National ID`) | کد ملی ۱۰ رقمی | الگوریتم رقم کنترلی Mod 11 ارائه‌شده توسط صاحب پروژه |
+| کد پستی | کد پستی ۱۰ رقمی | بررسی ساختار؛ **بدون تضمین تعلق کد به یک نشانی واقعی** |
+| نشانی | استان، شهر، خیابان، کوچه، پلاک و واحد | اجزای ساختگی که با یکدیگر سازگار باشند |
+| اطلاعات پرداخت (در آینده) | شماره کارت و شماره شبا (`IBAN`) | فقط اعتبارسنجی ساختار و رقم کنترلی؛ نه تأیید حساب بانکی واقعی |
+| متن و فیلدها | متن فارسی، عربی، لاتین و ترکیبی | تست حالت‌های خاص یونیکد، طول، فاصله و نرمال‌سازی |
 
-**Validity levels matter:** `formatValid` means a generated value meets a declared rule; it does **not** mean the value exists in an authoritative registry, belongs to a person, is active, or can receive mail or messages. Location consistency beyond format requires vetted reference data.
+**سطح اعتبار داده اهمیت دارد:** `formatValid` یعنی داده تولیدشده از یک قانون تعریف‌شده عبور می‌کند؛ **نه** اینکه در سامانه رسمی ثبت شده، به فرد خاصی تعلق دارد، فعال است یا امکان دریافت نامه یا پیام دارد. برای اطمینان از هماهنگی جغرافیایی فراتر از قالب، داده مرجع معتبر لازم است.
 
-## Valid and invalid test cases
+## سناریوهای تست داده معتبر و نامعتبر
 
-Instead of returning an arbitrary bad value, invalid mode should support **named scenarios** so a developer can test one validation rule at a time.
+در حالت نامعتبر، به‌جای تولید یک مقدار اشتباه تصادفی، ابزار باید از **سناریوهای نام‌گذاری‌شده** پشتیبانی کند تا توسعه‌دهنده بتواند هر قانون اعتبارسنجی را جداگانه آزمایش کند.
 
-| Field | Valid case | Invalid scenarios (examples) |
+| فیلد | حالت معتبر | نمونه سناریوهای نامعتبر |
 | --- | --- | --- |
-| National ID | Ten ASCII digits; checksum passes the chosen algorithm | Wrong checksum, wrong length, non-digits, repeated digits |
-| Mobile | Correct national number format | Missing `0`, invalid prefix, too short, letters, Persian-digit format when ASCII-only is required |
-| Postal code | Ten-digit, rule-compliant format | Too short, non-digits, disallowed prefix (where rules are available) |
-| Name | Synthetic Persian name | Empty, only whitespace, too long, unexpected invisible character |
-| Date | Schema-conforming date | Impossible day, leap-year boundary, unsupported format |
+| کد ملی | دقیقاً ۱۰ رقم انگلیسی (ASCII) و رقم کنترلی معتبر مطابق الگوریتم انتخابی | رقم کنترلی اشتباه، طول نادرست، کاراکتر غیرعددی، ارقام تکراری |
+| موبایل | ساختار صحیح شماره داخلی ایران | حذف صفر ابتدایی، پیش‌شماره نامعتبر، طول کم، وجود حروف، اعداد فارسی در فیلدی که فقط ASCII می‌پذیرد |
+| کد پستی | ساختار ۱۰ رقمی مطابق قوانین پشتیبانی‌شده | طول کم، کاراکتر غیرعددی، پیشوند غیرمجاز (در صورت وجود قوانین معتبر) |
+| نام | نام فارسی ساختگی | مقدار خالی، فقط فاصله، طول بیش از حد، کاراکتر نامرئی غیرمنتظره |
+| تاریخ | تاریخ مطابق Schema | روز ناممکن، مرز سال کبیسه، قالب پشتیبانی‌نشده |
 
-The generator should make test failures **deterministic** when a seed is provided and should label why a generated value is expected to be accepted or rejected.
+در صورت تعیین `seed`، تولید سناریوهای تست باید **قابل بازتولید** باشد؛ همچنین خروجی باید مشخص کند چرا انتظار می‌رود هر مقدار پذیرفته یا رد شود.
 
-## Proposed API (not yet implemented)
+## API پیشنهادی (هنوز پیاده‌سازی نشده)
 
 ```ts
 import { persianMock } from "persian-mock-data";
@@ -68,19 +68,19 @@ const invalidNationalId = persianMock.field("identity.nationalId", {
 });
 ```
 
-The final API will be designed and tested during implementation. No npm package is claimed to have been published yet.
+API نهایی هنگام پیاده‌سازی طراحی و آزمایش خواهد شد. در حال حاضر ادعایی درباره انتشار پکیج در npm وجود ندارد.
 
-## National ID validation contract
+## قرارداد اعتبارسنجی کد ملی
 
-The **reference implementation is the validator supplied by the project owner**. Its behavior is the initial compatibility target:
+**مرجع اصلی، تابع اعتبارسنجی ارائه‌شده توسط صاحب پروژه است.** رفتار همان تابع، مبنای سازگاری اولیه خواهد بود:
 
-- Input: a string containing **exactly 10 ASCII digits** (`0`–`9`).
-- Rejects these repeated-digit values explicitly: `0000000000`, `2222222222`, `3333333333`, `4444444444`, `5555555555`, `6666666666`, `7777777777`, `8888888888`, and `9999999999`.
-- Weights the first nine digits from `10` down to `2`; computes `remainder = weightedSum % 11`.
-- The final digit must equal `remainder` if it is below `2`, or `11 - remainder` otherwise.
+- ورودی باید رشته‌ای شامل **دقیقاً ۱۰ رقم انگلیسی (ASCII)** از `0` تا `9` باشد.
+- این مقادیر با ارقام تکراری صراحتاً رد می‌شوند: `0000000000`، `2222222222`، `3333333333`، `4444444444`، `5555555555`، `6666666666`، `7777777777`، `8888888888` و `9999999999`.
+- به ۹ رقم اول، وزن‌های `10` تا `2` اعمال می‌شود و سپس `remainder = weightedSum % 11` محاسبه می‌شود.
+- اگر باقیمانده کمتر از `2` باشد، رقم آخر باید برابر باقیمانده باشد؛ در غیر این صورت باید برابر `11 - remainder` باشد.
 
 ```ts
-// Equivalent in behavior to the user-supplied function, with scoped variables.
+// بازنویسی تابع ارسالی کاربر با متغیرهای محلی، بدون تغییر در رفتار آن
 export function validateNationalId(value: string): boolean {
   const repeated = new Set([
     "0000000000", "2222222222", "3333333333", "4444444444",
@@ -101,32 +101,32 @@ export function validateNationalId(value: string): boolean {
 }
 ```
 
-> **Known edge case to decide:** The supplied reference does **not** explicitly reject `1111111111`, and that value passes its checksum calculation. We should preserve reference behavior initially, add a regression test documenting it, and decide whether to offer a separate `strict` policy that rejects all repeated-digit sequences. Do not silently alter the reference rule.
+> **نکته مرزی که باید درباره آن تصمیم‌گیری شود:** تابع مرجع، `1111111111` را صراحتاً رد نمی‌کند و این مقدار از بررسی رقم کنترلی آن عبور می‌کند. در ابتدا باید همین رفتار حفظ و با یک تست رگرسیون مستند شود. سپس می‌توان درباره ارائه سیاست جداگانه `strict` برای رد تمام کدهای دارای ارقام یکسان تصمیم گرفت. **نباید قانون مرجع بی‌سروصدا تغییر کند.**
 
-## Design principles
+## اصول طراحی
 
-- **Framework-agnostic core** written in TypeScript, suitable for React, Next.js, Vue, Angular, and vanilla JS.
-- **Explicit validation policies:** configure expected input formats and choose which rules a fixture should violate.
-- **Reproducible fixtures:** optional seeded generation for stable automated tests.
-- **Coherent data:** province/city/landline area-code relationships should agree where supported by maintained reference data.
-- **Extensible schemas:** allow custom fields, generators, validators, and cross-field constraints.
-- **Safe by design:** clearly synthetic fixtures; avoid promising real-world existence, deliverability, or unique assignment.
-- **Developer-friendly:** typed API, useful error messages, unit tests, documentation, and small imports.
+- **هسته مستقل از فریم‌ورک:** نوشته‌شده با TypeScript و قابل استفاده در React، Next.js، Vue، Angular و JavaScript معمولی.
+- **سیاست‌های اعتبارسنجی شفاف:** امکان پیکربندی قالب مورد انتظار ورودی و تعیین قانونی که داده نامعتبر باید آن را نقض کند.
+- **داده‌های قابل بازتولید:** تولید مبتنی بر `seed` اختیاری برای تست‌های خودکار پایدار.
+- **سازگاری بین داده‌ها:** هماهنگی استان، شهر و کد تلفن ثابت در صورت وجود داده مرجع نگهداری‌شده و معتبر.
+- **Schema توسعه‌پذیر:** پشتیبانی از فیلدهای سفارشی، تولیدکننده‌ها، اعتبارسنج‌ها و محدودیت‌های بین فیلدی.
+- **طراحی ایمن:** مشخص بودن ساختگی بودن داده‌ها، بدون ادعای وجود واقعی، قابل دسترس بودن یا اختصاص یکتای آن‌ها.
+- **تجربه توسعه‌دهندگی مناسب:** API دارای Type، خطاهای قابل فهم، تست واحد، مستندات و امکان Import کم‌حجم.
 
-## Roadmap
+## نقشه راه توسعه
 
-- [ ] **v0.1 — Core:** project setup, seeded random engine, basic Persian names, phones, national ID validation and generation, and unit tests.
-- [ ] **v0.2 — Negative testing:** invalid-case catalog, named scenarios, boundary conditions, metadata describing failed rules.
-- [ ] **v0.3 — Iranian location data:** province/city/address relationships, landline area codes, postal-code rules with documented limitations.
-- [ ] **v0.4 — Schema-aware generation:** field mappings, custom generators, JSON Schema / Zod integrations.
-- [ ] **v0.5 — Form ecosystem:** adapters and examples for React Hook Form and Formik.
-- [ ] **v1.0 — Stable library:** documented API, compatibility tests, CI, versioned releases, and npm publication.
-- [ ] **Future:** opt-in browser/devtools autofill for supported forms; accessibility and mixed-direction input test presets.
+- [ ] **نسخه ۰.۱ — هسته اولیه:** راه‌اندازی پروژه، موتور تولید تصادفی مبتنی بر `seed`، نام‌های فارسی، تلفن‌ها، تولید و اعتبارسنجی کد ملی و تست‌های واحد.
+- [ ] **نسخه ۰.۲ — تست‌های منفی:** فهرست سناریوهای نامعتبر، سناریوهای نام‌گذاری‌شده، شرایط مرزی و فراداده درباره قوانین نقض‌شده.
+- [ ] **نسخه ۰.۳ — داده‌های جغرافیایی ایران:** ارتباط استان/شهر/نشانی، کدهای تلفن ثابت و قواعد کد پستی همراه با مستندسازی محدودیت‌ها.
+- [ ] **نسخه ۰.۴ — تولید مبتنی بر Schema:** نگاشت فیلدها، تولیدکننده‌های سفارشی و اتصال به JSON Schema و Zod.
+- [ ] **نسخه ۰.۵ — یکپارچه‌سازی با فرم‌ها:** Adapter و مثال برای React Hook Form و Formik.
+- [ ] **نسخه ۱.۰ — کتابخانه پایدار:** API مستند، تست سازگاری، CI، انتشار نسخه‌دار و انتشار در npm.
+- [ ] **آینده:** پر کردن خودکار فرم‌های پشتیبانی‌شده از طریق ابزار توسعه یا مرورگر (با فعال‌سازی اختیاری)؛ مجموعه سناریوهای آماده برای دسترس‌پذیری و ورودی‌های چندجهته.
 
-## Contributing
+## مشارکت در پروژه
 
-Contributions, bug reports, and reproducible Iranian form edge cases are welcome once the repository setup is complete. Please add tests for any new validation rule or invalid scenario and document the source and limitations of format constraints.
+پس از تکمیل راه‌اندازی ریپازیتوری، مشارکت‌ها، گزارش خطاها و نمونه‌های قابل بازتولید از مشکلات فرم‌های ایرانی استقبال می‌شوند. برای هر قانون اعتبارسنجی یا سناریوی نامعتبر جدید، لطفاً تست اضافه کنید و منبع و محدودیت‌های قوانین قالب‌بندی را مستند کنید.
 
-## License
+## مجوز
 
-A permissive open-source license such as **MIT** is proposed; add a `LICENSE` file before release.
+استفاده از یک مجوز متن‌باز آسان‌گیر مانند **MIT** پیشنهاد می‌شود. پیش از انتشار، فایل `LICENSE` را به ریپازیتوری اضافه کنید.
